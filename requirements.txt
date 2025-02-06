@@ -1,6 +1,6 @@
 streamlit
 scikit-learn
 numpy
-sqlite3
+# sqlite3
 pandas
 matplotlib
