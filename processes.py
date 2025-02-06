@@ -25,3 +25,10 @@ def feature_engineer(data):
     data['AI'].replace(np.inf, 0, inplace=True)
 
     return data
+
+
+def wrangle(data):
+    # Remove Missing Data - Drop rows with -999
+    data = data[~data.isin([-999.25]).any(axis=1)]
+
+    return data

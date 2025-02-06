@@ -3,6 +3,7 @@ import seaborn as sns
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+import streamlit as st
 
 def plot_3(data, feature_list):
 
@@ -31,7 +32,8 @@ def plot_3(data, feature_list):
 
     features = feature_list
 
-    plt.figure(figsize=(7, 78))  # Create a single figure
+    # plt.figure(figsize=(7, 78))  # Create a single figure
+    fig, ax = plt.subplots(figsize=(7, 60))  # Adjusted figure size for Streamlit
 
     for feature in features:
         sns.lineplot(
@@ -65,4 +67,5 @@ def plot_3(data, feature_list):
     plt.gca().invert_xaxis() 
 
     plt.tight_layout()
-    plt.show()
+    # Display plot in Streamlit
+    st.pyplot(fig)

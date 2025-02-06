@@ -21,7 +21,10 @@ if uploaded_file is not None:
     # Display selected itemsd
     if selected_items:
         st.write(data[selected_items])
-        st.write(plot_3(data, selected_items))
+        if len(selected_items) == 3:
+            plot_3(data, selected_items)
+        else:
+            st.warning('Please, reduce the selected features to 3. \n This software cannot process more than three features at a time now.')
     else:
         st.write("No items selected.")
 
