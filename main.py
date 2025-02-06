@@ -1,6 +1,7 @@
 import streamlit as st
 from views import load_file_from_db, csv_to_sqlite
 import pandas as pd
+from processes import feature_engineer
 import os
 
 uploaded_file = st.file_uploader("Choose files", type=["csv", "xlsx"])
