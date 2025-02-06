@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from processes import feature_engineer
+from components import plot_3
 
 # App title
 st.title("Multi-Select Example with Deselect Option")
@@ -20,6 +21,7 @@ if uploaded_file is not None:
     # Display selected itemsd
     if selected_items:
         st.write(data[selected_items])
+        st.write(plot_3(data, selected_items))
     else:
         st.write("No items selected.")
 

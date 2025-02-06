@@ -4,30 +4,32 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
 
-def plot_3(data):
+def plot_3(data, feature_list):
 
+    name1, name2, name3 = feature_list
 
-    # Assuming 'data' is your DataFrame
-    cali_scaler = MinMaxScaler()
-    gr_scaler = MinMaxScaler()
-    dt_scaler = MinMaxScaler()
+    scalers = {
+        f"{name1}_scaler": MinMaxScaler(),
+        f"{name2}_scaler": MinMaxScaler(),
+        f"{name3}_scaler": MinMaxScaler(),
+    }
 
     # Store the original values
     original_depth = data['DEPTH'].values  # Store original DEPTH values
     original_values = {
-        'CALI': data['CALI'].values,
-        'GR': data['GR'].values,
-        'DT': data['DT'].values,
+        name1: data[name1].values,
+        name2: data[name2].values,
+        name3: data[name3].values,
     }
 
     # Scale the values
     feature_ = pd.DataFrame()
-    feature_['CALI'] = cali_scaler.fit_transform(data[['CALI']]).flatten()
-    feature_['GR'] = gr_scaler.fit_transform(data[['GR']]).flatten()
-    feature_['DT'] = dt_scaler.fit_transform(data[['DT']]).flatten()
-    feature_['DEPTH'] = dt_scaler.fit_transform(data[['DEPTH']]).flatten()  # Scaled depth
+    feature_[name1] = scalers[f'{name1}_scaler'].fit_transform(data[[name1]]).flatten()
+    feature_[name2] = scalers[f'{name2}_scaler'].fit_transform(data[[name2]]).flatten()
+    feature_[name3] = scalers[f'{name3}_scaler'].fit_transform(data[[name3]]).flatten()
+    feature_['DEPTH'] = scalers[f'{name3}_scaler'].fit_transform(data[['DEPTH']]).flatten()  # Scaled depth
 
-    features = ['CALI', 'GR', 'DT']
+    features = feature_list
 
     plt.figure(figsize=(7, 78))  # Create a single figure
 
@@ -50,7 +52,7 @@ def plot_3(data):
         min_val, max_val = original_values[feature_name].min(), original_values[feature_name].max()
         return value * (max_val - min_val) + min_val
 
-    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{scale_back(x, 'CALI'):.2f}"))
+    ax.xaxis.set_major_formatter(ticker.FuncFormatter(lambda x, _: f"{scale_back(x, name1):.2f}"))
 
     # Add title, labels, and legend
     plt.title('Distribution of Features Across DEPTH', fontsize=16)
