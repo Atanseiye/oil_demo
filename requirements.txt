@@ -3,5 +3,6 @@ scikit-learn
 numpy
 # sqlite3
 seaborn
+openpyxl
 pandas
 matplotlib
